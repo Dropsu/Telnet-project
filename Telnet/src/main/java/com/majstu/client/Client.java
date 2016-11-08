@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
 
 public class Client {
@@ -16,13 +17,12 @@ public class Client {
 	
 	 String message;
 	 String addressIP;
+
 	 
 	 
 	public Client(){
 	
 		gotMessage();
-	
-		
 	}
 	
 	
@@ -51,8 +51,11 @@ public class Client {
 	public void connectToServer() throws IOException {
 		
 		System.out.println("Podaj adres IP serwera");
-		addressIP = in.readLine();
-        Socket socket = new Socket(addressIP, 992);
+		Scanner sc = new Scanner(System.in);
+		addressIP = sc.next();
+		
+		
+		Socket socket = new Socket(addressIP, 9898);
 
         
         in = new BufferedReader(
@@ -71,7 +74,7 @@ public class Client {
 		
 		Client client = new Client();
 		
-		 client.connectToServer();
+		client.connectToServer();
 	}
 	
 }
