@@ -19,7 +19,9 @@ public class EchoClient {
             BufferedReader stdIn =
                 new BufferedReader(
                     new InputStreamReader(System.in));
-
+            
+            System.out.println(in.readLine()); //TODO: print all incoming lines
+            
             String userInput;
             while ((userInput = stdIn.readLine()) != null) {
                 out.println(userInput);
