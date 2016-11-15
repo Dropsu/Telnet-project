@@ -46,6 +46,18 @@ public class EchoClient extends TelnetCommunicator {
               inputFromServ2 = waitForInput(inputFromServ2, in);
 
               System.out.println(inputFromServ2);
+
+              if ((userInput = stdIn.readLine()) != null) {
+                  if (userInput.equals("quit")) {
+                      break;
+                  }
+                  sendCharByChar(userInput, out);
+              }
+
+              String inputFromServ3 = "";
+              inputFromServ3 = waitForInput(inputFromServ3, in);
+
+              System.out.println(inputFromServ3);
           }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);

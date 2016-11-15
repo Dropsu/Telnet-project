@@ -17,10 +17,12 @@ public class TelnetCommunicator {
             out.print(a);
             out.flush();
         }
+        out.print("#");
+        out.flush();
     }
 
     static protected String waitForInput (String input, BufferedReader in ) throws Exception {
-        while (!input.endsWith(".")) {
+        while (!input.endsWith("#")) {
             input += Character.toString((char) in.read());
         }
         return input;

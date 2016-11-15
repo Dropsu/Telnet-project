@@ -28,11 +28,21 @@ public class EchoServer extends TelnetCommunicator {
         try {
             waitForConnection();
 
-            sendCharByChar("Welcome to our Telnet Bro .", out);
+            sendCharByChar("Welcome to our Telnet Bro\nCommands:\n/help - list commands\n/quit - exit\n/list - list files\n/open - open file",out);
+
 
             while (clientSocket.isConnected()) {
                 clientInput = "";
                 clientInput = waitForInput(clientInput, in);
+                if (clientInput.equals("/help#")){
+                    sendCharByChar("Commands:\n/help - list commands\n/quit - exit\n/list - list files\n/open - open file",out);
+                }
+                if(clientInput.equals("/list#")) {
+                    sendCharByChar(ListFilesManager.list(),out);
+                }
+                if(clientInput.equals("/open#")) {
+                    sendCharByChar(TelnetFileReader.read("tekst.txt"),out);
+                }
                 sendCharByChar(clientInput, out);
             }
         } catch (Exception e) {
