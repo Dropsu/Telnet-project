@@ -7,36 +7,36 @@ import java.io.*;
  
 public class EchoServer extends TelnetCommunicator {
 
+    private static ServerSocket serverSocket;
+    private static Socket clientSocket;
+    private static String clientInput;
 
-    public static void main(String[] args) throws IOException {
-
-        int portNumber = 27;
-
-        try {
-            ServerSocket serverSocket =
+    private static void waitForConnection () throws IOException {
+        serverSocket =
                 new ServerSocket(27);
-            Socket clientSocket = serverSocket.accept();
-             out =
+        clientSocket = serverSocket.accept();
+        out =
                 new PrintWriter(clientSocket.getOutputStream(), true);
 
-            in = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
+        in = new BufferedReader(
+                new InputStreamReader(clientSocket.getInputStream()));
+    }
+
+
+    public static void main(String[] args) throws Exception {
+
+        try {
+            waitForConnection();
 
             sendCharByChar("Welcome to our Telnet Bro .", out);
 
-            String clientInput = "";
-
-            clientInput = waitForInput(clientInput, in);
-
-            sendCharByChar(clientInput, out);
-
-
-        } catch (IOException e) {
-            System.out.println("Exception caught when trying to listen on port "
-                + portNumber + " or listening for a connection");
-            System.out.println(e.getMessage());
+            while (clientSocket.isConnected()) {
+                clientInput = "";
+                clientInput = waitForInput(clientInput, in);
+                sendCharByChar(clientInput, out);
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }
