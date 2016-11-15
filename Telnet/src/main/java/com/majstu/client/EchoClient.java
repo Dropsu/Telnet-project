@@ -10,7 +10,10 @@ public class EchoClient {
         int portNumber = 27;
  
         try {
+            //Connecting to server
             Socket socket = new Socket(hostName, portNumber);
+
+            //Declaring streams
             PrintWriter out =
                 new PrintWriter(socket.getOutputStream(), true);
             BufferedReader in =
@@ -19,14 +22,23 @@ public class EchoClient {
             BufferedReader stdIn =
                 new BufferedReader(
                     new InputStreamReader(System.in));
-            
-            System.out.println(in.readLine()); //TODO: print all incoming lines
-            
-            String userInput;
-            while ((userInput = stdIn.readLine()) != null) {
-                out.println(userInput);
-                System.out.println("echo: " + in.readLine());
-            }
+            String userInput = "";
+
+            String inputFromServ="";
+          while((userInput != "quit")) {
+
+              while (!inputFromServ.endsWith(".")) {
+                  inputFromServ+=Character.toString((char)in.read());
+//                  System.out.print(Character.toChars(in.read()));
+              }
+              System.out.println(inputFromServ);
+
+
+              if ((userInput = stdIn.readLine()) != null) {
+                  out.println(userInput);
+                  // System.out.println("echo: " + in.readLine());
+              }
+          }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
             System.exit(1);

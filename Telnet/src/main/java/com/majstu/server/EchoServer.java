@@ -14,10 +14,20 @@ public class EchoServer {
                 new ServerSocket(27);
             Socket clientSocket = serverSocket.accept();     
             PrintWriter out =
-                new PrintWriter(clientSocket.getOutputStream(), true); 
-            out.println("Telnet Connection Established\n"
-            		+ "/help - for help\n"
-            		+ "/quit - for quit");
+                new PrintWriter(clientSocket.getOutputStream(), true);
+
+            String welcomingMessage = "Welcome to Out Telnet Bro .";
+            for(char a: welcomingMessage.toCharArray()){
+                out.print(a);
+                out.flush();
+            }
+
+            out.print(0);
+            out.flush();
+
+
+
+
             BufferedReader in = new BufferedReader(
                 new InputStreamReader(clientSocket.getInputStream()));
 
