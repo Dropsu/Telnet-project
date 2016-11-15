@@ -43,7 +43,6 @@ public class EchoServer extends TelnetCommunicator {
                 if(clientInput.equals("/open#")) {
                     sendCharByChar(TelnetFileReader.read("tekst.txt"),out);
                 }
-                sendCharByChar(clientInput, out);
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());

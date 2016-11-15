@@ -2,69 +2,69 @@ package com.majstu.client;
 
 import com.majstu.TelnetCommunicator;
 
+
 import java.io.*;
 import java.net.*;
- 
 public class EchoClient extends TelnetCommunicator {
+
+
+
+
+
+
+
+
     public static void main(String[] args) throws IOException {
 
         String hostName = InetAddress.getLocalHost().getHostName();
         int portNumber = 27;
- 
+
         try {
             //Connecting to server
             Socket socket = new Socket(hostName, portNumber);
 
             //Declaring streams
-             out =
-                new PrintWriter(socket.getOutputStream(), true);
-             in =
-                new BufferedReader(
-                    new InputStreamReader(socket.getInputStream()));
+            out =
+                    new PrintWriter(socket.getOutputStream(), true);
+            in =
+                    new BufferedReader(
+                            new InputStreamReader(socket.getInputStream()));
             BufferedReader stdIn =
-                new BufferedReader(
-                    new InputStreamReader(System.in));
+                    new BufferedReader(
+                            new InputStreamReader(System.in));
 
 
             String userInput = "";
 
             String inputFromServ="";
-          while((userInput != "quit")) {
-
-              inputFromServ = waitForInput(inputFromServ, in);
-              System.out.println(inputFromServ);
+            inputFromServ = waitForInput(inputFromServ, in);
+            System.out.println(inputFromServ);
 
 
-              if ((userInput = stdIn.readLine()) != null) {
-                  if (userInput.equals("quit")) {
-                      break;
-                  }
-                  sendCharByChar(userInput, out);
-              }
+            while((userInput != "quit.")) {
 
-              String inputFromServ2 = "";
-              inputFromServ2 = waitForInput(inputFromServ2, in);
+                // accessible methods: /help. /quit. /list. /open.
 
-              System.out.println(inputFromServ2);
+                if ((userInput = stdIn.readLine()) != null) {
+                    if (userInput.equals("quit.")) {
+                        break;
+                    }
+                    sendCharByChar(userInput, out);
+                }
 
-              if ((userInput = stdIn.readLine()) != null) {
-                  if (userInput.equals("quit")) {
-                      break;
-                  }
-                  sendCharByChar(userInput, out);
-              }
+                String inputFromServ2 = "";
+                inputFromServ2 = waitForInput(inputFromServ2, in);
 
-              String inputFromServ3 = "";
-              inputFromServ3 = waitForInput(inputFromServ3, in);
+                System.out.println(inputFromServ2);
+            }
+        }
 
-              System.out.println(inputFromServ3);
-          }
-        } catch (UnknownHostException e) {
+        catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
             System.exit(1);
         } catch (IOException e) {
             System.err.println("Couldn't get I/O for the connection to " +
-                hostName);
+                    hostName);
             System.exit(1);
         } catch (Exception e) {
             e.printStackTrace();
