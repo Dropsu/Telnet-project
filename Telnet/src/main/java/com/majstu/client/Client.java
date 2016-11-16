@@ -5,7 +5,7 @@ import com.majstu.TelnetCommunicator;
 
 import java.io.*;
 import java.net.*;
-public class EchoClient extends TelnetCommunicator {
+public class Client extends TelnetCommunicator {
 
 
 
@@ -20,6 +20,8 @@ public class EchoClient extends TelnetCommunicator {
         int portNumber = 27;
 
         try {
+
+            System.out.println("To quit Client type: 'quit.'\n");
             //Connecting to server
             Socket socket = new Socket(hostName, portNumber);
 

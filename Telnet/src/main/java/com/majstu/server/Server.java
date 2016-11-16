@@ -5,7 +5,7 @@ import com.majstu.TelnetCommunicator;
 import java.net.*;
 import java.io.*;
  
-public class EchoServer extends TelnetCommunicator {
+public class Server extends TelnetCommunicator {
 
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
@@ -28,20 +28,24 @@ public class EchoServer extends TelnetCommunicator {
         try {
             waitForConnection();
 
-            sendCharByChar("Welcome to our Telnet Bro\nCommands:\n/help - list commands\n/quit - exit\n/list - list files\n/open - open file",out);
+            sendCharByChar("Welcome to YourTextFiles Telnet\nCommands:\n/help - list commands\n/list - list files\n/open <filename> - open file\n/quit - exit",out);
 
 
             while (clientSocket.isConnected()) {
                 clientInput = "";
                 clientInput = waitForInput(clientInput, in);
-                if (clientInput.equals("/help#")){
-                    sendCharByChar("Commands:\n/help - list commands\n/quit - exit\n/list - list files\n/open - open file",out);
+                if (clientInput.equals("/help")){
+                    sendCharByChar("Commands:\n/help - list commands\n/list - list files\n/open <filename> - open file\n/quit - exit",out);
                 }
-                if(clientInput.equals("/list#")) {
-                    sendCharByChar(ListFilesManager.list(),out);
+                if(clientInput.equals("/list")) {
+                    sendCharByChar(FileService.list(),out);
                 }
-                if(clientInput.equals("/open#")) {
-                    sendCharByChar(TelnetFileReader.read("tekst.txt"),out);
+                if(clientInput.substring(0,5).equals("/open")) {
+                    sendCharByChar(FileService.read(clientInput.substring(6)),out);
+                }
+                if(clientInput.equals("/quit")) {
+                    sendCharByChar("Logged out",out);
+                    clientSocket.close();
                 }
             }
         } catch (Exception e) {

@@ -12,6 +12,13 @@ public class TelnetCommunicator {
 
     protected static BufferedReader in;
 
+    private static String cutCross(String str) {
+        if (str != null && str.length() > 0 && str.charAt(str.length()-1)=='#') {
+            str = str.substring(0, str.length()-1);
+        }
+        return str;
+    }
+
      protected static void sendCharByChar (String message,PrintWriter out ) {
         for(char a: message.toCharArray()){
             out.print(a);
@@ -25,9 +32,8 @@ public class TelnetCommunicator {
         while (!input.endsWith("#")) {
             input += Character.toString((char) in.read());
         }
-        return input;
+
+        return cutCross(input);
     }
-
-
 
 }
