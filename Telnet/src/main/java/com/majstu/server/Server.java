@@ -13,7 +13,7 @@ public class Server extends TelnetCommunicator {
 
     private static void waitForConnection () throws IOException {
         serverSocket =
-                new ServerSocket(27);
+                new ServerSocket(23);
         clientSocket = serverSocket.accept();
         out =
                 new PrintWriter(clientSocket.getOutputStream(), true);
@@ -26,6 +26,7 @@ public class Server extends TelnetCommunicator {
     public static void main(String[] args) throws Exception {
 
         try {
+
             waitForConnection();
 
             sendCharByChar("Welcome to YourTextFiles Telnet\nCommands:\n/help - list commands\n/list - list files\n/open <filename> - open file\n/quit - exit",out);

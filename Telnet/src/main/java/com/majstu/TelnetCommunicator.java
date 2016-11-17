@@ -8,28 +8,33 @@ import java.io.PrintWriter;
  */
 public class TelnetCommunicator {
 
+    protected static String endChar;
+
     protected static PrintWriter out;
 
     protected static BufferedReader in;
 
     private static String cutCross(String str) {
-        if (str != null && str.length() > 0 && str.charAt(str.length()-1)=='#') {
+        endChar=Character.toString ((char) 255);
+        if (str != null && str.length() > 0 && str.charAt(str.length()-1)==endChar.toCharArray()[0]) {
             str = str.substring(0, str.length()-1);
         }
         return str;
     }
 
      protected static void sendCharByChar (String message,PrintWriter out ) {
+         endChar=Character.toString ((char) 255);
         for(char a: message.toCharArray()){
             out.print(a);
             out.flush();
         }
-        out.print("#");
+        out.print(endChar);
         out.flush();
     }
 
     static protected String waitForInput (String input, BufferedReader in ) throws Exception {
-        while (!input.endsWith("#")) {
+        endChar=Character.toString ((char) 255);
+        while (!input.endsWith(endChar)) {
             input += Character.toString((char) in.read());
         }
 
