@@ -17,7 +17,7 @@ public class Client extends TelnetCommunicator {
     public static void main(String[] args) throws IOException {
 
         String hostName = InetAddress.getLocalHost().getHostName();
-        int portNumber = 27;
+        int portNumber = 23;
 
         try {
 
