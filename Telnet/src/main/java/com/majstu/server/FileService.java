@@ -12,7 +12,7 @@ public class FileService {
     public static String list() throws IOException {
     
     	String result = "";     
-        String dirPathname = ".\\src\\main\\resources";      
+        String dirPathname = ".\\Telnet\\src\\main\\resources";      
         File directory = new File(dirPathname);
 
 	        if(!directory.isDirectory()){
@@ -37,7 +37,7 @@ public class FileService {
         try {
 
             String sCurrentLine;
-            File directory = new File(".\\src\\main\\resources\\"+filename+".txt");
+            File directory = new File(".\\Telnet\\src\\main\\resources\\"+filename+".txt");
             if (directory.isFile()){
 	            br = new BufferedReader(new java.io.FileReader(".\\src\\main\\resources\\"+filename+".txt"));
 	           
@@ -64,7 +64,7 @@ public class FileService {
 	
     public static String delete(String filename) throws IOException {
     String result;
-   	 String dirPathname = ".\\src\\main\\resources\\"+filename+".txt";
+   	 String dirPathname = ".\\Telnet\\src\\main\\resources\\"+filename+".txt";
    	 File directory = new File(dirPathname);
    	 if(directory.isFile()){
    	 directory.delete();
@@ -77,7 +77,7 @@ public class FileService {
     
     public static String add(String filename) throws IOException {
 	    	String result = "";
-			 String dirPathname = ".\\src\\main\\resources\\"+filename+".txt";
+			 String dirPathname = ".\\Telnet\\src\\main\\resources\\"+filename+".txt";
 			
 			try{ 
 					File directory = new File(dirPathname);
