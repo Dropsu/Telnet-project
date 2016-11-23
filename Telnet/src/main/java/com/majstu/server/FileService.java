@@ -118,7 +118,6 @@ public class FileService {
 			FileWriter fw = new FileWriter(directory.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
             PrintWriter out = new PrintWriter(bw);
-            out.print(message);
             bw.write(message);
             out.close();
             bw.close();	

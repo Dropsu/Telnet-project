@@ -10,6 +10,9 @@ public class Server extends TelnetCommunicator {
     private static ServerSocket serverSocket;
     private static Socket clientSocket;
     private static String clientInput;
+    private static String commands = "Commands:\n/help - list commands\n/list - list files\n" +
+            "/open <filename> - open file\n/quit - exit\n/add <filename> - create file\n/overwrite <filename> - overwrite file\n" +
+            "/delete <filename> - delete file\n";
     private static void waitForConnection () throws IOException {
         serverSocket =
                 new ServerSocket(23);
@@ -29,7 +32,7 @@ public class Server extends TelnetCommunicator {
             waitForConnection();
             
             
-            sendCharByChar("Welcome to YourTextFiles Telnet\nCommands:\n/help - list commands\n/list - list files\n/open <filename> - open file\n/quit - exit\n/add <filename> - create file\n/delete <filename> - delete file\n",out);
+            sendCharByChar("Welcome to YourTextFiles Telnet\n"+commands,out);
            
 
             while (clientSocket.isConnected()) {
@@ -37,7 +40,7 @@ public class Server extends TelnetCommunicator {
                 clientInput = waitForInput(clientInput, in);
               
                 if (clientInput.equals("/help")){
-                    sendCharByChar("Commands:\n/help - list commands\n/list - list files\n/open <filename> - open file\n/quit - exit\n/add <filename> - create file\n/delete <filename> - delete file\n",out);
+                    sendCharByChar(commands,out);
                 }
                 
                 else if(clientInput.equals("/list")) {
@@ -63,12 +66,16 @@ public class Server extends TelnetCommunicator {
                     }
                 }
                 
-                else if(clientInput.length() >= 5 && clientInput.substring(0,5).equals("/edit")){
-                	 sendCharByChar("Write your text:" ,out);
-                	 String fname = clientInput.substring(6);
-                	 clientInput="";
-                	 clientInput = waitForInput(clientInput, in);
-                	 sendCharByChar(FileService.edit(fname, clientInput),out);
+                else if(clientInput.length() >= 11 && clientInput.substring(0,10).equals("/overwrite")){
+                    if (clientInput.substring(11).trim().length() == 0) {
+                        sendCharByChar("<Empty name>", out);
+                    } else {
+                        sendCharByChar("Write your text:" ,out);
+                        String fname = clientInput.substring(11);
+                        clientInput = "";
+                        clientInput = waitForInput(clientInput, in);
+                        sendCharByChar(FileService.edit(fname, clientInput), out);
+                    }
                 }
                 
                 else if(clientInput.length() >= 5 && clientInput.substring(0,4).equals("/add")){

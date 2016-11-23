@@ -32,18 +32,6 @@ public class TelnetCommunicator {
         out.print(endChar);
         out.flush();
     }
-
-     
-     protected static void sendCharByChar (String filename, String message, PrintWriter out ) {
-         endChar=Character.toString ((char) 255);
-    
-         for(char a: message.toCharArray()){   
-            out.print(a);
-            out.flush();
-        }
-        out.print(endChar);
-        out.flush();
-    }
      
     static protected String waitForInput (String input, BufferedReader in ) throws Exception {
         endChar=Character.toString ((char) 255);
