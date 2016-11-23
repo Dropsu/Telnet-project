@@ -29,7 +29,7 @@ public class Server extends TelnetCommunicator {
             waitForConnection();
             
             
-            sendCharByChar("Welcome to YourTextFiles Telnet\nCommands:\n/help - list commands\n/list - list files\n/open <filename> - open file\n/quit - exit",out);
+            sendCharByChar("Welcome to YourTextFiles Telnet\nCommands:\n/help - list commands\n/list - list files\n/open <filename> - open file\n/quit - exit\n/add <filename> - create file\n/delete <filename> - delete file\n",out);
            
 
             while (clientSocket.isConnected()) {
@@ -45,22 +45,31 @@ public class Server extends TelnetCommunicator {
                 }
                
                
-                else if( clientInput.length() >= 7 && clientInput.substring(0,7).equals("/delete")) {
-            	  
-            	  sendCharByChar(FileService.delete(clientInput.substring(8)),out);
-            	 
-       	   
-               			} 
+                else if( clientInput.length() >= 8 && clientInput.substring(0,7).equals("/delete")) {
+                    if (clientInput.substring(8).trim().length() == 0){
+                        sendCharByChar("<Empty name>",out);
+                    } else {
+                        sendCharByChar(FileService.delete(clientInput.substring(8)),out);
+                        }
+
+                    }
                 
                 
-                else if(clientInput.length() >= 5 && clientInput.substring(0,5).equals("/open")) {
-                    sendCharByChar(FileService.read(clientInput.substring(6)),out);
+                else if(clientInput.length() >= 6 && clientInput.substring(0,5).equals("/open")) {
+                    if (clientInput.substring(6).trim().length() == 0){
+                        sendCharByChar("<Empty name>",out);
+                    } else {
+                        sendCharByChar(FileService.read(clientInput.substring(6)), out);
+                    }
                 }
                 
                 
-                else if(clientInput.length() >= 4 && clientInput.substring(0,4).equals("/add")){
-                
-                	sendCharByChar(FileService.add(clientInput.substring(5)), out);
+                else if(clientInput.length() >= 5 && clientInput.substring(0,4).equals("/add")){
+                    if (clientInput.substring(5).trim().length() == 0){
+                        sendCharByChar("<Empty name>",out);
+                    } else {
+                        sendCharByChar(FileService.add(clientInput.substring(5)), out);
+                    }
                 
                 }
                 
@@ -74,6 +83,7 @@ public class Server extends TelnetCommunicator {
                 }
             }
         } catch (Exception e) {
+            sendCharByChar(e.getMessage()+"\nCRITICAL\nCONNECTION CLOSED",out);
             System.err.println(e.getMessage());
         }
     }

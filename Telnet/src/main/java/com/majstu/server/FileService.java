@@ -1,7 +1,6 @@
 package com.majstu.server;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.Arrays;
 
 
@@ -37,16 +36,20 @@ public class FileService {
         try {
 
             String sCurrentLine;
-            File directory = new File(".\\Telnet\\src\\main\\resources\\"+filename+".txt");
+            File directory = new File(".\\Telnet\\src\\main\\resources\\"+filename);
             if (directory.isFile()){
-	            br = new BufferedReader(new java.io.FileReader(".\\src\\main\\resources\\"+filename+".txt"));
-	           
+	            br = new BufferedReader(new java.io.FileReader(".\\Telnet\\src\\main\\resources\\"+filename));
+
 	            while ((sCurrentLine = br.readLine()) != null) {
 	                result+=sCurrentLine+"\n";}
 	            }
             else result = filename +" is not a file";
-            
-            
+
+            if (result.equals("")){
+                result = "<file is empty>";
+            };
+
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,20 +67,20 @@ public class FileService {
 	
     public static String delete(String filename) throws IOException {
     String result;
-   	 String dirPathname = ".\\Telnet\\src\\main\\resources\\"+filename+".txt";
+   	 String dirPathname = ".\\Telnet\\src\\main\\resources\\"+filename;
    	 File directory = new File(dirPathname);
    	 if(directory.isFile()){
    	 directory.delete();
    	 result = "File "+filename+" deleted.";
    	 }
    	 else result = "There is no file: "+filename;
-   	 
+
    	return result;
    }
     
     public static String add(String filename) throws IOException {
 	    	String result = "";
-			 String dirPathname = ".\\Telnet\\src\\main\\resources\\"+filename+".txt";
+			 String dirPathname = ".\\Telnet\\src\\main\\resources\\"+filename;
 			
 			try{ 
 					File directory = new File(dirPathname);
@@ -85,8 +88,7 @@ public class FileService {
 						directory.createNewFile();
 						FileWriter fw = new FileWriter(directory.getAbsoluteFile());
 			            BufferedWriter bw = new BufferedWriter(fw);
-			            bw.write("@File genereted by Telnet@");       
-			            bw.close();	
+			            bw.close();
 			            result = "File: " +filename+" properly created ";}
 					else{
 						result = "File "+filename+" already exists!";
