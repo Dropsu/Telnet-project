@@ -57,6 +57,13 @@ public class Server extends TelnetCommunicator {
                     sendCharByChar(FileService.read(clientInput.substring(6)),out);
                 }
                 
+                else if(clientInput.length() >= 5 && clientInput.substring(0,5).equals("/edit")){
+                	 sendCharByChar("Write your text:" ,out);
+                	 String fname = clientInput.substring(6);
+                	 clientInput="";
+                	 clientInput = waitForInput(clientInput, in);
+                	 sendCharByChar(FileService.edit(fname, clientInput),out);
+                }
                 
                 else if(clientInput.length() >= 4 && clientInput.substring(0,4).equals("/add")){
                 

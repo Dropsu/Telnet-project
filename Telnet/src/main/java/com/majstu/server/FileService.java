@@ -76,6 +76,9 @@ public class FileService {
    }
     
     public static String add(String filename) throws IOException {
+    	
+    	
+    	
 	    	String result = "";
 			 String dirPathname = ".\\Telnet\\src\\main\\resources\\"+filename+".txt";
 			
@@ -99,5 +102,36 @@ public class FileService {
 	           		
 	        return result;    
 		}
+    
+    
+    public static String edit(String filename, String message) throws IOException {
+    	
+    	
+    String result="";
+    String dirPathname = ".\\Telnet\\src\\main\\resources\\"+filename;
+    try{ 
+		File directory = new File(dirPathname);
+		if(directory.isFile()){
+				
+			FileWriter fw = new FileWriter(directory.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            PrintWriter out = new PrintWriter(bw);
+            out.print(message);
+            bw.write(message);
+            out.close();
+            bw.close();	
+            result = "File: " +filename+" edited.";}
+		else{
+			result = "File "+filename+" doesn't exist!";
+		}
+} catch(IOException e)
+		{
+		result = "Error! File cannot be edited!";
+	    System.out.println(e);
+}
+    
+    	return result;
+    }
+    
     
 }
