@@ -24,7 +24,8 @@ public class TelnetCommunicator {
 
      protected static void sendCharByChar (String message,PrintWriter out ) {
          endChar=Character.toString ((char) 255);
-        for(char a: message.toCharArray()){
+    
+         for(char a: message.toCharArray()){   
             out.print(a);
             out.flush();
         }

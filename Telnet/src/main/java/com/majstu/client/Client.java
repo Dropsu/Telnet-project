@@ -16,17 +16,13 @@ public class Client extends TelnetCommunicator {
 
     public static void main(String[] args) throws IOException {
 
-<<<<<<< HEAD
-      //  String hostName = InetAddress.getLocalHost().getHostName();
-    	String hostName =  "25.62.197.160";
-=======
-        String hostName = InetAddress.getLocalHost().getHostName();
->>>>>>> branch 'master' of https://github.com/Dropsu/Telnet-project.git
+      String hostName = InetAddress.getLocalHost().getHostName();
+    //	String hostName =  "25.62.197.160";
         int portNumber = 23;
 
         try {
 
-            System.out.println("To quit Client type: 'quit.'\n");
+          
             //Connecting to server
             Socket socket = new Socket(hostName, portNumber);
 
@@ -42,38 +38,38 @@ public class Client extends TelnetCommunicator {
 
 
             String userInput = "";
+            String HandShake= "";
+           
+            
+            HandShake = waitForInput(HandShake, in);
+            System.out.println(HandShake);
 
-            String inputFromServ="";
-            inputFromServ = waitForInput(inputFromServ, in);
-            System.out.println(inputFromServ);
 
+            while(!socket.isClosed()) {
 
-            while((userInput != "quit.")) {
-
-                // accessible methods: /help. /quit. /list. /open.
 
                 if ((userInput = stdIn.readLine()) != null) {
-                    if (userInput.equals("quit.")) {
-                        break;
-                    }
+                    
+                		if (userInput.equals("/quit")) {
+                			socket.close();
+                		}
+                		
                     sendCharByChar(userInput, out);
+                    String inputFromServer = "";
+                    inputFromServer = waitForInput(inputFromServer, in);
+                    System.out.println(inputFromServer);
                 }
 
-                String inputFromServ2 = "";
-                inputFromServ2 = waitForInput(inputFromServ2, in);
-
-                System.out.println(inputFromServ2);
+                
+               
             }
         }
 
         catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
             System.exit(1);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for the connection to " +
-                    hostName);
-            System.exit(1);
-        } catch (Exception e) {
+        } 
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
