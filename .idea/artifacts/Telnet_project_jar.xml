@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Telnet-project:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Telnet_project_jar</output-path>
+    <root id="archive" name="Telnet-project.jar">
+      <element id="module-output" name="Telnet" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/3.1.0/protobuf-java-3.1.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
