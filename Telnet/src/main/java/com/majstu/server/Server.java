@@ -12,7 +12,7 @@ public class Server extends TelnetCommunicator {
     private static String clientInput;
     private static String commands = "Commands:\n/help - list commands\n/list - list files\n" +
             "/open <filename> - open file\n/quit - exit\n/add <filename> - create file\n/overwrite <filename> - overwrite file\n" +
-            "/delete <filename> - delete file or directory\n/createDir <dirName> - creates directory in working directory\n" +
+            "/delete <filename|dirName> - delete file or directory\n/createDir <dirName> - creates directory in working directory\n" +
             "/changeDir <dirName> / <..> - jumps into directory <dirName> or <..> goes back one direcory";
     private static void waitForConnection () throws IOException {
         serverSocket =
